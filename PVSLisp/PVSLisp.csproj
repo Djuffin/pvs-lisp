@@ -1,0 +1,75 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E6471505-54C9-4AA2-A44A-D14A74969706}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PVSLisp</RootNamespace>
+    <AssemblyName>PVSLisp</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Atom.cs" />
+    <Compile Include="Common\Closure.cs" />
+    <Compile Include="DotNet\TypeResolver.cs" />
+    <Compile Include="DotNet\DotNetInterop.cs" />
+    <Compile Include="Common\GlobalEnvironment.cs" />
+    <Compile Include="Common\Macro.cs" />
+    <Compile Include="Common\SystemFunction.cs" />
+    <Compile Include="Common\Function.cs" />
+    <Compile Include="Common\SpecialFunctions.cs" />
+    <Compile Include="Common\UserFunction.cs" />
+    <Compile Include="Common\LispEnvironment.cs" />
+    <Compile Include="Common\LispException.cs" />
+    <Compile Include="Common\ListEnumerator.cs" />
+    <Compile Include="Common\LCell.cs" />
+    <Compile Include="Common\LObject.cs" />
+    <Compile Include="Common\Runtime.cs" />
+    <Compile Include="Common\SpecialValues.cs" />
+    <Compile Include="Common\Symbol.cs" />
+    <Compile Include="Common\Scalar.cs" />
+    <Compile Include="Interpreter.cs" />
+    <Compile Include="Lexer\Lexer.cs" />
+    <Compile Include="Lexer\TextRegion.cs" />
+    <Compile Include="Lexer\TokenInfo.cs" />
+    <Compile Include="Lexer\Tokens.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\ParserException.cs" />
+    <Compile Include="Parser\TokenSource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
