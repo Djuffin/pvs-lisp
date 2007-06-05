@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Reflection;
 
 namespace PVSLisp.Common
 {
@@ -13,8 +14,15 @@ namespace PVSLisp.Common
             List<LObject> result = new List<LObject>();
             if (args != null)
                 foreach (LObject arg in args)
-                    result.Add(arg.Evaluate(env));
+                    result.Add(EvaluateArg(env, arg));
             return result;
+        }
+
+        private static LObject EvaluateArg(LispEnvironment env, LObject arg)
+        {
+            if (arg == null) 
+                return SpecialValues.NIL;
+            return arg.Evaluate(env);
         }
 
         private static double GetNumber(LObject arg, ref bool isDouble)
@@ -121,8 +129,10 @@ namespace PVSLisp.Common
                     if (conditioin == null || conditioin.Count != 2)
                         throw new LispException("All arguments of COND should be consitions");
 
-                    if (!SpecialValues.NIL.Equals(conditioin.Head.Evaluate(env)))
-                        return conditioin.Tail.Head.Evaluate(env);
+                    if (!SpecialValues.NIL.Equals(EvaluateArg(env, conditioin.Head)))
+                        return LateEvaluator.Create(env, conditioin.Tail.Head);
+                        //return conditioin.Tail.Head.TailEvaluate(env);
+                        
                 }
 
                 return SpecialValues.NIL;
@@ -130,16 +140,36 @@ namespace PVSLisp.Common
             }
             #endregion
 
-            #region Closure
-            public static SystemFunction Closure_ = new SystemFunction(Closure);
-            private static LObject Closure(LispEnvironment env, LCell args)
+            #region Do
+            public static SystemFunction Do_ = new SystemFunction(Do);
+            private static LObject Do(LispEnvironment env, LCell args)
             {
-                AssertParamsCount(args, 2);
+                LObject result = args.Head;
 
-                LCell funcArgs = args.Head as LCell;
-                LCell body = args.Tail.Head as LCell;
+                while (args.Tail != null)
+                {
+                    result.Evaluate(env);
+                    args = args.Tail;
+                    result = args.Head;
+                }
 
-                return new Closure(body, funcArgs, env);
+                return LateEvaluator.Create(env, result);
+                //return result.TailEvaluate(env);
+            }
+            #endregion 
+
+            #region Function
+            public static SystemFunction Function_ = new SystemFunction(Function);
+            private static LObject Function(LispEnvironment env, LCell args)
+            {
+                AssertParamsCount(args, 1);
+
+                Closure lambda = EvaluateArg(env, args.Head) as Closure;
+
+                if (lambda == null)
+                    throw new LispException("Argument of 'function' should be lambda expression");
+
+                return new Closure(lambda, env);
             }
             #endregion
 
@@ -152,7 +182,7 @@ namespace PVSLisp.Common
                 LCell funcArgs = args.Head as LCell;
                 LCell body = args.Tail.Head as LCell;
 
-                return new UserFunction(body, funcArgs);
+                return new Closure(body, funcArgs);
             }
             #endregion
 
@@ -169,18 +199,15 @@ namespace PVSLisp.Common
             }
             #endregion
 
-            #region Eval
-            public static SystemFunction Eval_ = new SystemFunction(Eval);
+			#region Eval
+			public static SystemFunction Eval_ = new SystemFunction(Eval);
             private static LObject Eval(LispEnvironment env, LCell args)
             {
                 AssertParamsCount(args, 1);
 
-                LObject result = args.Head.Evaluate(env);
+                LObject result = EvaluateArg(env, args.Head);
 
-                if (result != null)
-                    return result.Evaluate(env);
-
-                return null;
+                return result.Evaluate(env);
             }
             #endregion
 
@@ -272,7 +299,8 @@ namespace PVSLisp.Common
             {
                 AssertParamsCount(args, 1);
 
-                LCell cell = EvaluateArgs(env, args)[0] as LCell;
+                LCell cell = EvaluateArg(env, args.Head) as LCell;
+                
 
                 if (cell == null)
                     throw new LispException("CAR is undefied for atom");
@@ -287,7 +315,7 @@ namespace PVSLisp.Common
             {
                 AssertParamsCount(args, 1);
 
-                LCell cell = EvaluateArgs(env, args)[0] as LCell;
+                LCell cell = EvaluateArg(env, args.Head) as LCell;
 
                 if (cell == null)
                     throw new LispException("CDR is undefied for atom");
@@ -410,9 +438,53 @@ namespace PVSLisp.Common
             {
                 AssertParamsCount(args, 1);
 
-                return SpecialValues.NIL.Equals(args.Head.Evaluate(env)) ? SpecialValues.T : SpecialValues.NIL;
+                return SpecialValues.NIL.Equals(EvaluateArg(env, args.Head)) ? SpecialValues.T : SpecialValues.NIL;
             }
             #endregion
+        }
+        #endregion
+
+        #region Exceptions handling
+        public class Exceptions
+        {
+            #region Throw
+            public static SystemFunction Throw_ = new SystemFunction(Throw);
+            private static LObject Throw(LispEnvironment env, LCell args)
+            {
+                AssertParamsCount(args, 1);
+
+                List<LObject> argList = EvaluateArgs(env, args);
+
+                throw new LispException(argList[0].ToString());
+            }
+            #endregion
+
+            #region Try
+            /// <summary>
+            /// try executes its first form (the body) and if an exception is thrown
+            /// executes its second form (the catch) with the variable exception bound to Exception
+            /// </summary>
+            public static SystemFunction Try_ = new SystemFunction(Try);
+            private static LObject Try(LispEnvironment env, LCell args)
+            {
+                AssertParamsCount(args, 2);
+                LObject body = args.Head;
+                LObject result;
+                try
+                {
+                    result = body.Evaluate(env);
+                }
+                catch (Exception e)
+                {
+                    env.AssignLocalSymbol(new Symbol("exception"), ScalarFactory.Make(e));
+                    LObject catchBody = args.Tail.Head;
+                    result = catchBody.Evaluate(env);
+                }
+
+                return result;
+            }
+            #endregion
+
         }
         #endregion
 
@@ -440,7 +512,7 @@ namespace PVSLisp.Common
 
                 object[] constructorArgs = ConvertArgs(EvaluateArgs(env, args.Tail));
 
-                Symbol targetType = args.Head.Evaluate(env) as Symbol;
+                Symbol targetType = EvaluateArg(env, args.Head) as Symbol;
 
                 if (targetType == null)
                     throw new WrongFunctionParams("First agrument of new must can be evaluated to a symbol");
@@ -458,10 +530,10 @@ namespace PVSLisp.Common
 
                 object[] methodArgs = ConvertArgs(EvaluateArgs(env, args.Tail.Tail));
 
-                Symbol targetMethod = args.Head.Evaluate(env) as Symbol;
+                Symbol targetMethod = EvaluateArg(env, args.Head) as Symbol;
 
                 if (targetMethod == null)
-                    throw new WrongFunctionParams("First agrument of new must can be evaluated to a symbol");
+                    throw new WrongFunctionParams("First agrument of .NET call must can be evaluated to a symbol");
 
                 LObject ThisOrType = args.Tail.Head.Evaluate(env);
                 Symbol typeName = ThisOrType as Symbol;
@@ -481,19 +553,98 @@ namespace PVSLisp.Common
 
             #endregion
 
-            #region Throw
-            public static SystemFunction Throw_ = new SystemFunction(Throw);
-            private static LObject Throw(LispEnvironment env, LCell args)
+            #region Using
+            public static SystemFunction Using_ = new SystemFunction(Using);
+            private static LObject Using(LispEnvironment env, LCell args)
             {
                 AssertParamsCount(args, 1);
 
-                List<LObject> argList = EvaluateArgs(env, args);
+                LObject objNamespace = EvaluateArg(env, args.Head);
+                string strNamespace = null;
+                if (objNamespace is Scalar)
+                    strNamespace = (objNamespace as Scalar).Value as string;
+                else if (objNamespace is Symbol)
+                    strNamespace = (objNamespace as Symbol).Name;
 
-                throw new LispException(argList[0].ToString());
+                if (strNamespace == null)
+                    throw new LispException("Unexpected argument of using");
+
+                DotNet.TypeResolver.Instance.AddUsing(strNamespace);
+                return SpecialValues.T;
             }
-
             #endregion
-        }
+
+			#region Reference
+			public static SystemFunction Reference_ = new SystemFunction(Reference);
+			private static LObject Reference(LispEnvironment env, LCell args)
+			{
+				AssertParamsCount(args, 1);
+
+                LObject assemblyName = EvaluateArg(env, args.Head);
+                string strAssemblyName = null;
+                if (assemblyName is Scalar)
+                    strAssemblyName = (assemblyName as Scalar).Value as string;
+                else if (assemblyName is Symbol)
+                    strAssemblyName = (assemblyName as Symbol).Name;
+
+                if (strAssemblyName == null)
+                    throw new LispException("Unexpected argument of reference");
+
+				Assembly result = DotNet.TypeResolver.Instance.LoadAssembly(strAssemblyName);
+				return result == null ? SpecialValues.NIL : ScalarFactory.Make(result);
+			}
+			#endregion
+
+			#region AddHandler
+			public static SystemFunction AddHandler_ = new SystemFunction(AddHandler);
+			private static LObject AddHandler(LispEnvironment env, LCell args)
+			{
+				AssertParamsCount(args, 3);
+
+				LObject lispHandler =  EvaluateArg(env, args.Tail.Tail.Head);
+				Symbol smbTargetEvent = EvaluateArg(env, args.Head) as Symbol;
+				Scalar sclrTargetEvent = EvaluateArg(env, args.Head) as Scalar;
+
+				string targetEvent = null;
+				if (smbTargetEvent != null)
+					targetEvent = smbTargetEvent.Name;
+				else if (sclrTargetEvent.Value as string != null)
+					targetEvent = sclrTargetEvent.Value as string;
+
+				if (targetEvent == null)
+					throw new WrongFunctionParams("First agrument of .NET AddHandler must can be evaluated to a event name");
+
+				Scalar This = args.Tail.Head.Evaluate(env) as Scalar;
+
+				if (This == null || This.Value == null)
+					throw new WrongFunctionParams("Second agrument of .NET AddHandler must can be evaluated to a not null .NET object");
+
+				DotNet.DotNetInterop.AddEventHandler(This.Value, targetEvent, 
+					new EventHandler(delegate(Object sender, EventArgs eventArgs)
+					{
+						if (lispHandler is Function)
+						{
+							LObject[] arguments = new LObject[] { ScalarFactory.Make(sender), ScalarFactory.Make(eventArgs) };
+							LObject result = (lispHandler as Function).Call(env, LCell.Make(arguments), false );
+							if (result is LateEvaluator)
+								result.Evaluate(env);
+						}
+						else
+						{
+							LispEnvironment handlerEnv = new LispEnvironment(env);
+							handlerEnv.AssignLocalSymbol(new Symbol("sender"), ScalarFactory.Make(sender));
+							handlerEnv.AssignLocalSymbol(new Symbol("args"), ScalarFactory.Make(eventArgs));
+							lispHandler.Evaluate(handlerEnv);
+						}
+					}));
+
+				return SpecialValues.T;
+
+			}
+
+			#endregion
+
+		}
         #endregion
     }
 

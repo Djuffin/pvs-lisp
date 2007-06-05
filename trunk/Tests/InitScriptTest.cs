@@ -18,6 +18,7 @@ namespace Tests
         [TestFixtureSetUp]
         public void Setup()
         {
+            //Log.WriteTrace = true;
             consoleInterpreter.RunInitScript();
             string defAssert = "( defun assert (condition msg) (cond (condition t) (t (throw msg)) ) )";
             consoleInterpreter.Execute(defAssert);
@@ -41,6 +42,8 @@ namespace Tests
             {
                 consoleInterpreter.Execute(reader.ReadToEnd());
             }
+            //Log.PrintStatistics();
+
         }
     }
 }

@@ -73,10 +73,19 @@ namespace Tests
         }
 
         [Test]
-        public void ClosureTest()
+        public void FunctionTest1()
         {
-            string define = "( (lambda (x) (set 'addX (closure (y) (+ x y)) ) )  100)";
+            string define = "( (lambda (x) (set 'addX (function (lambda (y) (+ x y)) ) ) )  100)";
             string exec = "( eq 102 (addX 2) )";
+
+            LispAssert.IsT(define + exec);
+        }
+
+        [Test]
+        public void FunctionTest2()
+        {
+            string define = "( (lambda (x) (set 'addX  #'(lambda (y) (+ x y)) ) )  100)";
+            string exec = "((lambda (arg) ( eq 102 (addX arg) ) ) 2)";
 
             LispAssert.IsT(define + exec);
         }
@@ -85,6 +94,12 @@ namespace Tests
         public void LambdaTest()
         {
             Assert.AreEqual(ScalarFactory.Make(3), Interpreter.ExecuteOne("( (lambda (x y) (+ x y)) 1 2 )"));
+        }
+
+        [Test]
+        public void LambdaRestparamTest()
+        {
+            Assert.AreEqual(ScalarFactory.Make(3), Interpreter.ExecuteOne("( (lambda (arg1 &rest) (car (cdr &rest) )) 1 2 3 4)"));
         }
 
         [Test]
@@ -123,6 +138,13 @@ namespace Tests
         {
             LispAssert.IsT("(eq 'x 'x)");
             LispAssert.IsNIL("(eq 'x 'y)");
+        }
+
+        [Test]
+        public void DoTest()
+        {
+            LispAssert.IsT("(do (set 'x 123) (eq (- x 23) 100))");
+            LispAssert.IsNIL("(do (set 'x 123) nil)");
         }
         #endregion
 
@@ -180,6 +202,11 @@ namespace Tests
         public void CarTest()
         {
             LispAssert.IsT("(eq 1 (car '(1 2 3)))");
+            LispAssert.AssertLispException("CAR for atom does not throw",
+                delegate
+                {
+                    Interpreter.ExecuteOne("(car 1)");
+                });
         }
 
         [Test]
@@ -188,6 +215,11 @@ namespace Tests
             LCell list = LCell.Make(new LObject[] { ScalarFactory.Make(1), new Symbol("x"), ScalarFactory.Make(3) });
             LCell.EqualLists(list, Interpreter.ExecuteOne("(cdr '(a 1 x 3))"));
             LispAssert.IsT("(eq nil (cdr '(1)))");
+            LispAssert.AssertLispException("CAR for atom does not throw",
+                delegate
+                {
+                    Interpreter.ExecuteOne("(cdr 1)");
+                });
         }
 
         #endregion
@@ -275,6 +307,9 @@ namespace Tests
                     Interpreter.ExecuteOne("(. second1 (. now datetime) 123 )");
                 });
         }
+        #endregion
+
+        #region Exception handling
 
         [Test]
         public void ThrowTest()
@@ -289,6 +324,14 @@ namespace Tests
                 return;
             }
             Assert.Fail("Throw! but no exception");
+        }
+
+        [Test]
+        public void TryTest()
+        {
+            LispAssert.IsT("(try (throw 123) (not (null exception)))");
+            LispAssert.IsT("(try (throw \"message\") (eq (. Message exception) \"message\"))");
+            LispAssert.IsT("(try (throw \"message\") (eq (. ToString (. GetType exception)) \"PVSLisp.Common.LispException\"))");
         }
         #endregion
     }

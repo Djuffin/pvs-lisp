@@ -1,5 +1,30 @@
 (pr "Tests are runing...\n")
 
+;TAIL CALL
+(defun repeat (n body) 
+	(cond ((eq n 1) (body))
+		  (t (do (body) (repeat (- n 1) body)  ))))
+		  
+;(setq count 0)
+;(repeat 1000 (lambda () (do (setq count (+ count 1)) (print count) )) )
+;(print (length '(1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0) ))
+
+;FACTORIAL TAIL CALL
+
+(defun fact-classic (n) 
+	(cond 
+		((eq n 0) 1 )
+		(t  (* n (fact-classic (- n 1))) )))
+		
+(defun fact-internal (n m) 
+	(cond 
+		((eq n 0) m )
+		(t  (fact-internal (- n 1) (* m n) ) )))	
+
+(defun fact (n) (fact-internal n 1))
+	
+(assert (eq (* 1 2 3 4 5 6 7) (fact 7)) "fuck")
+
 ;SETQ 
 (= foo 5)
 (= bar 10)
@@ -59,12 +84,41 @@
 
 ;LENGTH
 (assert (== (length '(1 2 3 (1 2 3) 5)) 5) "LENGTH fails") 
+(assert (== (length () ) 0) "LENGTH fails (nil)") 
+(assert (== (length 1 ) 1) "LENGTH fails (atom)") 
 
 ;MAP
 (defun inc (x) (+ x 1))
-(assert (eql (map '(1 2 3 4 5) inc) '(2 3 4 5 6)) "MAP fails") 
+(assert (eql (map inc '(1 2 3 4 5) ) '(2 3 4 5 6)) "MAP fails") 
+
 
 ;LET
 (assert 
 	(== (let ((x 1) (y 2)) (+ x y)) 3)
 	"LET fails")
+	
+(defun foo (arg) (let () (== arg 123)))	
+
+(assert (foo 123) "LET fails 2")	
+
+;LIST
+(assert (eql '(1 (1 2 3) 3 4 a) (list 1 '(1 2 3) 3 4 'a)) "list fails")	
+
+
+;WIN FORMS
+;(.using System.Windows.Forms)
+;(.reference System.Windows.Forms)
+;(setq frm (.new Form))
+;(.call Show frm)
+;(.call Text frm "Hello World!")
+;(defun handler (sender args) (.call Show MessageBox (.call Text sender) ) )
+;(.add-handler Closed frm handler )
+;(.add-handler Closed frm '(.call Show MessageBox (.call Text sender) ) )
+;(.call Run Application frm)
+
+
+	
+
+
+	
+

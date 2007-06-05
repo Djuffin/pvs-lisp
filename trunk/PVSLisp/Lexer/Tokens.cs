@@ -297,9 +297,11 @@ namespace PVSLisp.Lexer
 
     public class QuoteToken : Token
     {
+        public bool FunctionQuote = false;
+
         public override string Text
         {
-            get { return "`"; }
+            get { return FunctionQuote ? "#'" : "'"; }
         }
 
         private QuoteToken(int position)
@@ -307,11 +309,16 @@ namespace PVSLisp.Lexer
             this.region = new TextRegion(position);
         }
 
-        private const string Pattern = @" ([`']) ";
+        private const string Pattern = @" ([`']|\#') ";
 
         private static QuoteToken Make(string Text, TextRegion region)
         {
-            return new QuoteToken(region.Start);
+            QuoteToken result = new QuoteToken(region.Start);
+
+            if (Text == "#'")
+                result.FunctionQuote = true;
+
+            return result;
         }
 
         public static TokenInfo GetInfo()

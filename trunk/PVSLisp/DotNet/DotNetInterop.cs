@@ -46,6 +46,25 @@ namespace PVSLisp.DotNet
             }
         }
 
+		public static void AddEventHandler(object This, string name, Delegate handler)
+		{
+			Type targetType = This.GetType();
+			BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.FlattenHierarchy;
+
+			EventInfo targetEvent = targetType.GetEvent(name, bindingFlags);
+			if (targetEvent == null)
+				throw new LispException("No event with such name exests in the type: " + targetType.FullName);
+
+			try
+			{
+				targetEvent.AddEventHandler(This, handler);
+			}
+			catch (Exception e)
+			{
+				throw new LispException("Cannot subscribe to the event: " + name, e);
+			}
+		}
+
         private static Type ResolveType(string typeName)
         {
             Type result = TypeResolver.Instance.GetTypeByName(typeName);
@@ -68,11 +87,13 @@ namespace PVSLisp.DotNet
                 return item.GetType();
             });
 
+			//try do call
             MethodInfo method = targetType.GetMethod(name, bindingFlags, null, argumentsTypes, null);
             if (method != null)
                 return method.Invoke(This, arguments);
 
-            PropertyInfo property = targetType.GetProperty(name, bindingFlags, null, null, argumentsTypes, null);
+			//try get/set property
+            PropertyInfo property = targetType.GetProperty(name, bindingFlags);
             if (property != null)
             {
                 if (arguments.Length > 1)
@@ -93,6 +114,7 @@ namespace PVSLisp.DotNet
                 }
             }
 
+			//try read/write field
             FieldInfo field = targetType.GetField(name, bindingFlags);
             if (field != null)
             {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PVSLisp.Common
 {
-    class Macro : UserFunction
+    class Macro : Closure
     {
         public Macro(LCell body, LCell parameters)
             : base(body, parameters)
@@ -17,11 +17,29 @@ namespace PVSLisp.Common
             return value;
         }
 
-        public override LObject Evaluate(LispEnvironment env)
+        protected override LispEnvironment GetLocalEnvironment(LispEnvironment parent, bool tailCall)
         {
-            LObject expansionResult = base.Evaluate(env);
-            return expansionResult.Evaluate(env.Parent);
+            return new LispEnvironment(parent);
+            //return tailCall ? parent : new LispEnvironment(parent);
         }
+
+        public override LObject Call(LispEnvironment env, LCell arguments, bool tailCall)
+        {
+            tailCall = false; //Tail call is not supported for Macro now
+
+			LObject expansionResult = Expand(env, arguments, tailCall);
+            return LateEvaluator.Create(env, expansionResult);
+            //return expansionResult.TailEvaluate(env);
+        }
+
+		public LObject Expand(LispEnvironment env, LCell arguments, bool tailCall)
+		{
+			LispEnvironment localEnv = GetLocalEnvironment(env, tailCall);
+
+			BindParameters(env, arguments, localEnv, tailCall);
+
+			return body.Evaluate(localEnv);
+		}
 
         public override string ToLispString()
         {
