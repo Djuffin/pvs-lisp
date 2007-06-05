@@ -8,6 +8,8 @@ namespace PVSLisp.Common
     {
 
         private string name;
+		private int hashCode;
+
 
         public string Name
         {
@@ -19,7 +21,8 @@ namespace PVSLisp.Common
 
         public Symbol(string name)
         {
-            this.name = name;
+            this.name = string.Intern(name.ToLowerInvariant());
+			hashCode = this.name.GetHashCode();
         }
 
         public override LObject Evaluate(LispEnvironment env)
@@ -35,19 +38,19 @@ namespace PVSLisp.Common
 
         public override bool Equals(object obj)
         {
-            Symbol s = obj as Symbol;
-            if (s == null) return false;
-            return string.Compare(Name, s.Name, true, System.Globalization.CultureInfo.InvariantCulture) == 0;
+			Symbol s = obj as Symbol;
+			if (s == null) return false;
+			else return object.ReferenceEquals(name, s.name);
         }
 
         public override int GetHashCode()
         {
-            return Name.ToLowerInvariant().GetHashCode();
+            return hashCode;
         }
 
         public override string ToString()
         {
-            return Name;
+            return name;
         }
     }
 }

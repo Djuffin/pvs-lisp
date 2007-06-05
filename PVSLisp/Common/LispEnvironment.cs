@@ -10,7 +10,7 @@ namespace PVSLisp.Common
         private Runtime runtime;
         protected Dictionary<Symbol, LObject> globalSymbols = new Dictionary<Symbol, LObject>();
         protected Dictionary<Symbol, LObject> localSymbols = new Dictionary<Symbol, LObject>();
-        bool transparent = false;
+        private bool transparent = false;
 
         public LispEnvironment(LispEnvironment parent)
         {
@@ -18,6 +18,7 @@ namespace PVSLisp.Common
                 throw new ArgumentNullException("parent");
             this.parent = parent;
             this.runtime = parent.Runtime;
+            Log.EnvironmentCreate(this);
         }
 
         public LispEnvironment(Runtime runtime)
@@ -140,6 +141,10 @@ namespace PVSLisp.Common
             globalSymbols[s] = val;
         }
 
+        public void ClearLocals()
+        {
+            localSymbols.Clear();
+        }
 
     }
 }

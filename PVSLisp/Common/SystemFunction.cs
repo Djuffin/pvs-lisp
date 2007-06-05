@@ -6,7 +6,7 @@ namespace PVSLisp.Common
 {
     public delegate LObject FunctionEvaluator(LispEnvironment env, LCell args);
 
-    public class SystemFunction : Function
+    public sealed class SystemFunction : Function
     {
         private FunctionEvaluator evaluator;
 
@@ -19,25 +19,10 @@ namespace PVSLisp.Common
             this.evaluator = evaluator;
         }
 
-        public override LispEnvironment BindParameters(LispEnvironment parent, LCell values)
+
+        public override LObject Call(LispEnvironment env, LCell arguments, bool tailCall)
         {
-            LispEnvironment localEnv = parent; //we need it for ability access to local variables of parent for late binding
-            
-            if (values != null)
-                localEnv.AssignLocalSymbol(args, values);
-            else
-                localEnv.AssignLocalSymbol(args, SpecialValues.NIL);
-
-            return localEnv;
-        }
-
-        public override LObject Evaluate(LispEnvironment env)
-        {
-            LCell argsList = args.Evaluate(env) as LCell;
-
-            //Console.WriteLine(string.Format("log: [system call] {0} {1}", evaluator.Method.Name, argsList));
-
-            return evaluator(env, argsList);
+            return evaluator(env, arguments);
         }
 
         public override string ToLispString()

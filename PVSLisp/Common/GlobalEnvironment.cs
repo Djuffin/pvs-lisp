@@ -57,11 +57,12 @@ namespace PVSLisp.Common
             DefineConst(new Symbol("quote"), SpecialFunctions.LispNative.Quote_);
             DefineConst(new Symbol("lambda"), SpecialFunctions.LispNative.Lambda_);
             DefineConst(new Symbol("macro"), SpecialFunctions.LispNative.Macro_);
-            DefineConst(new Symbol("closure"), SpecialFunctions.LispNative.Closure_);
+            DefineConst(new Symbol("function"), SpecialFunctions.LispNative.Function_);
             DefineConst(new Symbol("cond"), SpecialFunctions.LispNative.Cond_);
             DefineConst(new Symbol("eval"), SpecialFunctions.LispNative.Eval_);
             DefineConst(new Symbol("atom"), SpecialFunctions.LispNative.Atom_);
             DefineConst(new Symbol("null"), SpecialFunctions.LispNative.Null_);
+            DefineConst(new Symbol("do"), SpecialFunctions.LispNative.Do_);
 
             DefineConst(new Symbol("print"), SpecialFunctions.Print_);
 
@@ -82,7 +83,12 @@ namespace PVSLisp.Common
             DefineConst(new Symbol(".new"), SpecialFunctions.DotNetSupport.New_);
             DefineConst(new Symbol(".call"), SpecialFunctions.DotNetSupport.Call_);
             DefineConst(new Symbol("."), SpecialFunctions.DotNetSupport.Call_);
-            DefineConst(new Symbol("throw"), SpecialFunctions.DotNetSupport.Throw_);
+            DefineConst(new Symbol(".using"), SpecialFunctions.DotNetSupport.Using_);
+			DefineConst(new Symbol(".reference"), SpecialFunctions.DotNetSupport.Reference_);
+			DefineConst(new Symbol(".add-handler"), SpecialFunctions.DotNetSupport.AddHandler_);
+
+            DefineConst(new Symbol("throw"), SpecialFunctions.Exceptions.Throw_);
+            DefineConst(new Symbol("try"), SpecialFunctions.Exceptions.Try_);
         }
     }
 }

@@ -39,7 +39,7 @@
   <ItemGroup>
     <Compile Include="DotNetTests.cs" />
     <Compile Include="EnvironmentTests.cs" />
-    <Compile Include="FunctionsTests.cs" />
+    <Compile Include="SpecialTests.cs" />
     <Compile Include="InitScriptTest.cs" />
     <Compile Include="LexerTests.cs" />
     <Compile Include="LispAssert.cs" />

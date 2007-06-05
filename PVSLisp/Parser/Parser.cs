@@ -47,7 +47,7 @@ namespace PVSLisp.Parser
                 return ParseListWithoutStart();
 
             if (tok is QuoteToken)
-                return ParseQuoteToken();
+                return ParseQuoteToken(tok as QuoteToken);
 
             if (tok is ListEndToken)
                 RiseError("Unexpected end of a list", tok);
@@ -61,14 +61,14 @@ namespace PVSLisp.Parser
             throw new Exception("Unknown token");
         }
 
-        private LObject ParseQuoteToken()
+        private LObject ParseQuoteToken(QuoteToken tok)
         {
             if (source.IsItEnd)
                 throw new LispException("Unexpected end of a list");
 
             LObject obj = ParseOne(source.GetNextToken());
             
-            Symbol quote = new Symbol("quote");
+            Symbol quote = tok.FunctionQuote ? new Symbol("function") : new Symbol("quote");
 
             return LCell.Make(new LObject[] { quote, obj });
         }

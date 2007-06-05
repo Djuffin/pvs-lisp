@@ -4,6 +4,7 @@ using System.Text;
 using PVSLisp.Common;
 using PVSLisp.DotNet;
 using NUnit.Framework;
+using PVSLisp;
 
 namespace Tests
 {
@@ -55,6 +56,13 @@ namespace Tests
             string substring = (string)DotNetInterop.Call(sb, "toString", 3, 3 );
             Assert.AreEqual(value.Substring(3, 3), substring);
             
+        }
+
+        [Test]
+        public void UsingTest()
+        {
+            Interpreter.ExecuteOne("(.new System.Text.StringBuilder)"); 
+            Interpreter.ExecuteOne("(.using System.Text) (.new StringBuilder)"); 
         }
 
     }

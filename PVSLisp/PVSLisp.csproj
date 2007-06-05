@@ -36,7 +36,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Atom.cs" />
-    <Compile Include="Common\Closure.cs" />
+    <Compile Include="Common\LateEvaluator.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="DotNet\TypeResolver.cs" />
     <Compile Include="DotNet\DotNetInterop.cs" />
     <Compile Include="Common\GlobalEnvironment.cs" />
@@ -44,7 +45,7 @@
     <Compile Include="Common\SystemFunction.cs" />
     <Compile Include="Common\Function.cs" />
     <Compile Include="Common\SpecialFunctions.cs" />
-    <Compile Include="Common\UserFunction.cs" />
+    <Compile Include="Common\Closure.cs" />
     <Compile Include="Common\LispEnvironment.cs" />
     <Compile Include="Common\LispException.cs" />
     <Compile Include="Common\ListEnumerator.cs" />
@@ -63,6 +64,9 @@
     <Compile Include="Parser\ParserException.cs" />
     <Compile Include="Parser\TokenSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

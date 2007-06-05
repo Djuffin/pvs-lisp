@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="9.75" />
+  <Class Name="PVSLisp.Common.Atom" Collapsed="true">
+    <Position X="2.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Atom.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.Closure" Collapsed="true">
+    <Position X="6" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Closure.cs</FileName>
+      <HashCode>AAAAQAABAAACAAAGAAAAAACAAQgAAAAAAAAAAACAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.Function" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Function.cs</FileName>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.GlobalEnvironment" Collapsed="true">
+    <Position X="9" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\GlobalEnvironment.cs</FileName>
+      <HashCode>AAAAAAAAAAgAAAgAAAAIgAAAAAAAACAAAAAQAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.LateEvaluator" Collapsed="true">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\LateEvaluator.cs</FileName>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAgAAAEAAAEAQAAAAAAAAAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.LCell" Collapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\LCell.cs</FileName>
+      <HashCode>ACAAgAAAgAAAAJAEAAAAAiSAAAAAQAAAAAACAAIAAgQ=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PVSLisp.Common.LispEnvironment" Collapsed="true">
+    <Position X="9" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\LispEnvironment.cs</FileName>
+      <HashCode>QkEAAEQAAAgIAABACAQAQAAAAQAgACBAAAAAAAABIAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.LispException" Collapsed="true">
+    <Position X="1" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\LispException.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.WrongFunctionParams" Collapsed="true">
+    <Position X="1" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\LispException.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.ListEnumerator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\ListEnumerator.cs</FileName>
+      <HashCode>AAAAAAAQACAABAAAAACAAAAAAAAAAAAAIABAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PVSLisp.Common.LObject" Collapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\LObject.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgCAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.Macro" Collapsed="true">
+    <Position X="6" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Macro.cs</FileName>
+      <HashCode>AQAAQAAAAAAAAAAGAAAAAACAAAgAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.Runtime" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Runtime.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.Scalar" Collapsed="true">
+    <Position X="3.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Scalar.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAgCAAAAAAIAAAQAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.TypedScalar&lt;T&gt;" Collapsed="true">
+    <Position X="3.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Scalar.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAACAAAQAgAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.ScalarFactory" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Scalar.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.SpecialFunctions" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\SpecialFunctions.cs</FileName>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAQAAAAQAAAAAAAAAAAEAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.SpecialValues" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\SpecialValues.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.Symbol" Collapsed="true">
+    <Position X="1.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\Symbol.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAgQAAAAEAIAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Common.SystemFunction" Collapsed="true">
+    <Position X="8.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\SystemFunction.cs</FileName>
+      <HashCode>AAQAQAAAAAAAAAAEAAAAAACAAAAAAAAAIAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.DotNet.DotNetInterop" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DotNet\DotNetInterop.cs</FileName>
+      <HashCode>AAAAQAAAAAAAACAAAAAAAAQAAAAAAgAAAABAAAAAACA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.DotNet.TypeResolver" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DotNet\TypeResolver.cs</FileName>
+      <HashCode>AAAAAAAAAABAAAABAAIAAEAQAAAAAAgBQAAICIAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Interpreter" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Interpreter.cs</FileName>
+      <HashCode>AAAAAAAAAAAIAgQAAAAAAAAAAAAAAAAAQAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Log" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Log.cs</FileName>
+      <HashCode>IAAAAACAAgABAgAAAAAAAAAAAAAAAAAAAAAEAIAIASA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.Lexer" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Lexer.cs</FileName>
+      <HashCode>AAAAAQAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.TextRegion" Collapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\TextRegion.cs</FileName>
+      <HashCode>AAJAAAAAACAAAAAEAAIAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.TokenInfo" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\TokenInfo.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.Token" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.SymbolToken" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAEAEAAAAAACAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.InvalidToken" Collapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAEAIAAAACAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.ConstToken" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.IntConstToken" Collapsed="true">
+    <Position X="12.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAQAAAAAEAAAAAgCAIAAAA=</HashCode>
+    </TypeIdentifier>
+    <InheritanceLine Type="PVSLisp.Lexer.ConstToken" FixedToPoint="true">
+      <Path>
+        <Point X="13.5" Y="2.445" />
+        <Point X="13.5" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+  </Class>
+  <Class Name="PVSLisp.Lexer.DoubleConstToken" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAQAAAAAEAAAAAgCAIAAAA=</HashCode>
+    </TypeIdentifier>
+    <InheritanceLine Type="PVSLisp.Lexer.ConstToken" FixedToPoint="true">
+      <Path>
+        <Point X="13.5" Y="2.445" />
+        <Point X="13.5" Y="2.875" />
+        <Point X="15.5" Y="2.875" />
+        <Point X="15.5" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+  </Class>
+  <Class Name="PVSLisp.Lexer.StringConstToken" Collapsed="true">
+    <Position X="10.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AABAAAAAAAAAAAAAAAgAAAAQAAAAAEAAAAAgCAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.SpaceToken" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAEAIAAAACAKAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.QuoteToken" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAQAAAAAEAAAAAACAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.ListBeginingToken" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAEAAAAAACAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Lexer.ListEndToken" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\Tokens.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAEAAAAAACAIAAAA=</HashCode>
+    </TypeIdentifier>
+    <InheritanceLine Type="PVSLisp.Lexer.Token" FixedToPoint="true">
+      <Path>
+        <Point X="11.5" Y="1.056" />
+        <Point X="11.5" Y="1.375" />
+        <Point X="15.5" Y="1.375" />
+        <Point X="15.5" Y="1.75" />
+      </Path>
+    </InheritanceLine>
+  </Class>
+  <Class Name="PVSLisp.Parser.Parser" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Parser\Parser.cs</FileName>
+      <HashCode>AAAgQAAAAAEAAAIAAAABAAAAAAAAAAAAAAAAAQAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Parser.ParserException" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Parser\ParserException.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PVSLisp.Parser.TokensSource" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Parser\TokenSource.cs</FileName>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAACAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="PVSLisp.Common.FunctionEvaluator" Collapsed="true">
+    <Position X="22.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\SystemFunction.cs</FileName>
+      <HashCode>AAAAAAAAAAAAIAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="PVSLisp.Lexer.TokenMaker" Collapsed="true">
+    <Position X="24" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Lexer\TokenInfo.cs</FileName>
+      <HashCode>AAAAAAAAAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+</ClassDiagram>

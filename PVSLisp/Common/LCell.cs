@@ -71,27 +71,40 @@ namespace PVSLisp.Common
 
         public override LObject Evaluate(LispEnvironment env)
         {
+            LObject result = EvaluateInternal(env, false);
+
+            if (result is LateEvaluator)
+                result = result.Evaluate(null);
+
+            return result;
+        }
+
+        public override LObject TailEvaluate(LispEnvironment env)
+        {
+            return EvaluateInternal(env, true);
+        }
+
+        private LObject EvaluateInternal(LispEnvironment env, bool tailCall)
+        {
+            //Log.LCellEvaluate(this, env);
+
             if (head == null)
                 throw new LispException("List head is not a valid function.");
 
             LObject evaluatedHead = head.Evaluate(env);
             Function func = evaluatedHead as Function;
-            LCell agruments = tail;
+            LCell arguments = tail;
 
             if (func == null && TryGuessDotNetCall(env, evaluatedHead))
             {
                 func = SpecialFunctions.DotNetSupport.Call_;
-                agruments = this;
+                arguments = this;
             }
 
-            if (func != null)
-            {
-                LispEnvironment funcLocalEnv = func.BindParameters(env, agruments);
-                return func.Evaluate(funcLocalEnv); 
-            }
+            if (func == null)
+                throw new LispException("List head is not a valid function.");
 
-            
-            throw new LispException("List head is not a valid function.");
+            return func.Call(env, arguments, tailCall);
         }
 
         private bool TryGuessDotNetCall(LispEnvironment env, LObject evaluatedHead)

@@ -28,7 +28,7 @@ namespace Tests
             {
                 test();
             }
-            catch (LispException e)
+            catch (LispException)
             {
                 return;
             }

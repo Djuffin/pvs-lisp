@@ -83,7 +83,10 @@ namespace Tests
         [Test]
         public void QuoteTest()
         {
-            TestTokenTypes("`' `'", new Type[] { QUOTE, QUOTE, QUOTE, QUOTE });
+            Token[] toks = TestTokenTypes("`' `'", new Type[] { QUOTE, QUOTE, QUOTE, QUOTE });
+            Assert.AreEqual(false, (toks[0] as QuoteToken).FunctionQuote);
+            toks = TestTokenTypes("#'a", new Type[] { QUOTE, SYMB });
+            Assert.AreEqual(true, (toks[0] as QuoteToken).FunctionQuote);
         }
 
 
